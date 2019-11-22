@@ -1,16 +1,18 @@
 <template>
   <v-app>
-    <!-- Left Menu -->
+    <!-- Main Menu -->
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
+      app
       clipped
       fixed
-      app
+      mobile-break-point="960"
+      width="170px"
     >
       <v-list>
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in menuItems"
           :key="i"
           :to="item.to"
           router
@@ -26,12 +28,15 @@
       </v-list>
     </v-navigation-drawer>
     <!-- Main Header Menu -->
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar clipped-left fixed app>
+      <v-app-bar-nav-icon
+        @click.stop="drawer = !drawer"
+        class="hidden-md-and-up"
+      />
       <v-btn
         @click.stop="miniVariant = !miniVariant"
         icon
-        class="d-none d-lg-flex d-xl-flex"
+        class="d-none d-md-flex d-lg-flex d-xl-flex"
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
@@ -57,24 +62,34 @@ export default {
     return {
       drawer: null,
       fixed: false,
-      items: [
+      menuItems: [
         {
           icon: 'mdi-apps',
           title: 'Welcome',
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'mdi-clipboard-list',
+          title: 'Services',
+          to: '/services'
+        },
+        {
+          icon: 'mdi-post',
+          title: 'Blog',
+          to: '/blog'
         },
         {
           icon: 'mdi-google-my-business',
           title: 'About',
           to: '/about'
+        },
+        {
+          icon: 'mdi-book-open-variant',
+          title: 'Contact',
+          to: '/contact'
         }
       ],
-      miniVariant: true,
+      miniVariant: false,
       right: true,
       title: 'Nuxt Adonis PWA Starter'
     }
